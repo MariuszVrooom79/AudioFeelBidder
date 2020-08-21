@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <link rel="stylesheet" type="text/css" href="mainNav.css">
@@ -18,8 +19,7 @@
 <!---------------------------------------------- NAVBAR ----------------------------------------------->
 <title>AudioFeel</title>
 <nav class="navbar navbar-expand-md">
-    <a href="/home"> <img src="audio.jpg" alt="logo" width="50px"></a>
-    <a class="nav-link" href="/home">Home</a>
+    <a href="/home"> <img src="http://server107178.nazwa.pl/Priv/Zdjecia/bidder/LogoB.png" alt="logo" width="150px"></a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -95,8 +95,8 @@
                 <img src="basowka.jpg" alt="logo" width="180px">
             </div>
             <div class="panel-logo-right">
-                <div>Twój Login</div>
-                <div>QWERTY</div>
+                Cześć <span th:text="${username}"/>
+                <div>Admin</div>
                 <a href="#" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Zmiana hasła</a>
             </div>
         </div>
@@ -108,7 +108,7 @@
 
     </div>
 </div>
-
+<h1>Tu jest Admin</h1>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -1,24 +1,22 @@
 package dom.com.AudioFeel.controler;
 
-import dom.com.AudioFeel.Data.AudioData;
+        import dom.com.AudioFeel.Data.AudioData;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+        import java.io.File;
+        import java.io.FileInputStream;
+        import java.io.FileNotFoundException;
+        import java.io.IOException;
+        import java.sql.Connection;
+        import java.sql.DriverManager;
+        import java.sql.PreparedStatement;
+        import java.sql.SQLException;
 
 public class SQLAudio {
 
     public static void UpdateExport(AudioData audio) {
 
-
-
-
         try {
+            
             File image = audio.getImage();
             FileInputStream stream = new FileInputStream(image);
             Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/audio", "postgres", "kamykpatyk622");

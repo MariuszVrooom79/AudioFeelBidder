@@ -2,11 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="mainNav.css">
-
-
-
-
+    <link rel="stylesheet" type="text/css" href="home.css">
 
 
 
@@ -14,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="PanelUzytkownika.css">
 </head>
 <body>
 
@@ -21,7 +18,7 @@
 <!---------------------------------------------- NAVBAR ----------------------------------------------->
 <title>AudioFeel</title>
 <nav class="navbar navbar-expand-md">
-    <a href="/home"> <img src="audio.jpg" alt="logo" width="50px"></a>
+    <a href="/home"> <img src="http://server107178.nazwa.pl/Priv/Zdjecia/bidder/LogoB.png" alt="logo" width="150px"></a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -34,7 +31,7 @@
                 <a class="nav-link" href="/zasady">Zasady</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/kontakt">Kontakt</a>
+           <!--     <a class="nav-link" href="/kontakt">Kontakt</a> -->
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -44,25 +41,47 @@
             </li>
                 <a class="nav-link" href="/audio">Wystaw aukcję</a>
             </li>
-                <a class="nav-link" href="/panel">Twoje aukcję</a>
+            <a class="nav-link" href="/user">Twoje aukcję</a>
             </li>
+
         </ul>
     </div>
 </nav>
 <!----------------------------------------------END NAVBAR----------------------------------------------->
 
-<h1> Tu idzie dalej wszystko </h1>
+<h1> </h1>
+<div class="container features">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <h3 class="feature-title">Wieże stereo</h3>
+            <img src="images3.jpg" class="img-fluid">
+            <p>Audio-feel jest miejscem aukcji sprętu audio. Znajdziesz u nas dawno nie produkowane już amplitunery, wieże, kolumny głośnikowe. W celu wyszukania przedmiotu, który Ciebie interesuje przejdź do zakładki Aukcje</p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <h3 class="feature-title">Amplitunery</h3>
+            <img src="Silver.jpg" class="img-fluid">
+            <p>Wystawiając u nas przedmiot na licytację pamiętaj aby dać dokładny opis i zdjecie przedmiotu.</p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <h3 class="feature-title">Napisz do nas</h3>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Name" name="">
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email Address" name="email">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="4"></textarea>
+            </div>
+            <input type="submit" class="btn btn-secondary btn-block" value="Send" name="">
+        </div>
+    </div>
+</div>
 
 <tr th:each="user : ${listaUser}">
     <td th:text="${user.getLogin()}"></td>
     <td th:text="${user.getPassword()}"></td>
 </tr>
-
-
-
-
-
-
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -71,6 +90,26 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <h6 class="text-uppercase font-weight-bold">Informacje o nas</h6>
+                <p>Udostępniamy Wam stronę z aukcjami sprzętru audio</p>
+                <p>W razie jakichkolwiek pytań skontaktuj się z nami</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <h6 class="text-uppercase font-weight-bold">Kontakt</h6>
+                <p>Warszawa 00-000, ul. Hoża 00/00
+                    <br/>bidder@gmail.com
+                    <br/>mariusz.klimkiewicz.bhp@gmail.com
+                    <br/>+ 22 234 567 89</p>
+            </div>
+        </div>
+        <div class="footer-copyright text-center">© 2020 Copyright: bidder.pl</div>
+</footer>
+
+
 </body>
 
 </html>

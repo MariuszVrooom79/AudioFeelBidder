@@ -77,4 +77,8 @@ public class SQL {
         return true;
     }
 
+    public static boolean listaSQLtoList(User log) {
+        return true;
+    }
+
 }
