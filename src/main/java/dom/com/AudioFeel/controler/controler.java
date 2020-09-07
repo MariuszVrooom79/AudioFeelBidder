@@ -1,45 +1,68 @@
 package dom.com.AudioFeel.controler;
 
-import dom.com.AudioFeel.Data.AudioData;
-import dom.com.AudioFeel.Data.User;
+import dom.com.AudioFeel.AuctionService;
+import dom.com.AudioFeel.Repo.AppAucionRepo;
+import dom.com.AudioFeel.Repo.AppUserRepo;
 import dom.com.AudioFeel.UserService;
-import dom.com.AudioFeel.WebSecurityConfig;
+import dom.com.AudioFeel.model.AppAuction;
 import dom.com.AudioFeel.model.AppUser;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
-import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
-import static dom.com.AudioFeel.controler.SQL.ExecuteImport;
 
 @Controller
 public class controler {
 
     private UserService userService;
+    private AuctionService auctionService;
+    private AppAucionRepo appAucionRepo;
+    private AppUserRepo appUserRepo;
 
-    public controler(UserService userService) {
+    public controler(UserService userService, AuctionService auctionService, AppAucionRepo appAucionRepo,AppUserRepo appUserRepo) {
         this.userService = userService;
+        this.auctionService =auctionService;
+        this.appAucionRepo = appAucionRepo;
+        this.appUserRepo = appUserRepo;
     }
 
-    @GetMapping("/home")
-    public String getHome(Model model) {
-        model.addAttribute("listaUser", User.listaUser);
+    @GetMapping("/main")
+    public String getMain(Model model) {
+
+        List<AppAuction> allAuctions = appAucionRepo.findAll();
+        model.addAttribute("allAuctions",allAuctions);
+
         return "index";
     }
 
-    @GetMapping("/aukcje")
-    public String getOnas() {
-        return "aukcje";
+   @GetMapping("/one/{id}")
+    public String getAuction(@PathVariable Long id, Model model) {
+
+        List<AppAuction> allAuc = appAucionRepo.findAll();
+
+        Optional<AppAuction> oneAuction = appAucionRepo.findById(id);
+
+        model.addAttribute("allAuc",allAuc);
+        model.addAttribute("oneAuction",oneAuction);
+
+        return "oneAuction";
     }
 
-    @GetMapping("/zasady")
-    public String getZasady() {
-        return "zasady";
-    }
 
     @GetMapping("/kontakt")
     public String getKontat() {
@@ -58,7 +81,14 @@ public class controler {
 
     @GetMapping("/user")
     public String getPanelUser(Principal principal,Model model) {
+        List<AppAuction> auctions = appAucionRepo.findAll();
+        List<AppAuction> ownerList = appAucionRepo.findByOwner(principal.getName());
+
+        model.addAttribute("auctions",auctions);
+        model.addAttribute("ownerList",ownerList);
+
         model.addAttribute("username", principal.getName());
+
         return "panelUser";
     }
 
@@ -68,71 +98,99 @@ public class controler {
     }
 
     @GetMapping("/admin")
-    public String getPanelAdmin(Principal principal, Model model) {
+    public String getPanelAdmin(@RequestParam(defaultValue = "0")int page, Principal principal, Model model) {
+
+
+        List<AppAuction> auctionsAdmin = appAucionRepo.findAll();
+        List<AppAuction> ownerAdminList = appAucionRepo.findByOwner(principal.getName());
+
+        
+        model.addAttribute("auctionsAdmin",appAucionRepo.findAll(PageRequest.of(page,4)));
+
         model.addAttribute("username", principal.getName());
         return "panelAdmin";
     }
+
 
     @GetMapping("/article")
     public String getArticle() {
         return "article";
     }
 
-    //  @GetMapping("/audio")
-    //  public String audioToDB() { return "audio"; }
-
     @GetMapping("/audio")
-    public String toAudio(Model model) {
-        model.addAttribute("audio", new AudioData());
-        return "audio";
+    public String getAudio(Model model) {
+
+        model.addAttribute("AppAuction", new AppAuction());
+
+        return "newAuction";
+    }
+    @PostMapping("/audio")
+    public String toAudio(@ModelAttribute AppAuction appAuction,AppUser appUser,Principal principal, Model model,
+                          @RequestParam("fielImgae") MultipartFile multipartFile) throws IOException {
+
+        model.addAttribute("username",principal.getName());
+
+
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        appAuction.setImage(fileName);
+
+        appAuction.setOwner(principal.getName());
+        auctionService.addAuction(appAuction,appUser);
+
+
+        System.out.println(appAuction.getId());
+        System.out.println(appAuction.getAuctionname());
+        System.out.println(appAuction.getDescription());
+        System.out.println(appAuction.getImage());
+        System.out.println(appUser.getUsername());
+        System.out.println(principal.getName());
+        return "redirect:/user";
 
     }
 
     @GetMapping("/logowanie")
-    public String toLogowanie(Model model) {
+    public String getLogowanie(Model model) {
         //model.addAttribute("listaUser", User.listaUser);
         model.addAttribute("konto", new AppUser());
+
         return "logowanie";
     }
+    @RequestMapping(value="/logout", method=RequestMethod.GET)
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+        return "redirect:/main";
+    }
 
-    @PostMapping("/logowanie")
-    public String getLogowanie(@ModelAttribute AppUser appUser ){
+        @PostMapping("/logowanie")
+    public String toLogowanie(@ModelAttribute AppUser appUser ){
+        System.out.println(appUser.getUsername());
          return "redirect:/user";
     }
 
 
     @GetMapping("/rejestracja")
-    public String toRejestracja(Model model) {
+    public String getRejestracja(Model model) {
         model.addAttribute("konto", new AppUser());
         return "rejestracja";
     }
 
-    @PostMapping("/rejestracja")       //TODO: wysayłanie rejestraci do bd
-    public String getRejestracja(AppUser appUser) {
+    @PostMapping("/rejestracja")
+    public String toRejestracja(AppUser appUser , RedirectAttributes ra) {
+
 
         userService.addUser(appUser);
-        return "panelUser";
+        ra.addFlashAttribute("message", " Użytwkownik został zarejestrowany"); //TODO: czemu nie działa
+
+        return "redirect:/logowanie";
     }
+    @GetMapping("user-delete/{id}")
+    public String getDeleteUser(@PathVariable Long id){
 
+        appUserRepo.deleteById(id);
 
-   // @PostMapping("/audio")
-   // public String getAudio(@ModelAttribute AudioData audio) {
-   //     if (!audio.getName().equals("") && !audio.getDescription().equals("")
-   //             && !audio.getImage().equals(null)) {
-   //
-   //         AudioData.listaAudio.add(audio);
-   //         SQLAudio.UpdateExport(audio);
-   //         SQL.ImportUsersSQL();
-   //
-   //         return "redirect:/aukcje";
-   //     }
-   //     return "errorPage";
-   // }
-
-    public static void main(String[] args) {
-        SQL.ImportUsersSQL();
-        SQLAudio.UpdateExport();
-
+        return "redirect:/logowanie";
     }
-
 }

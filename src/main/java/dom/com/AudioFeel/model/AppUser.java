@@ -1,6 +1,5 @@
 package dom.com.AudioFeel.model;
 
-import dom.com.AudioFeel.Data.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,8 +31,7 @@ public class AppUser implements UserDetails {
         this.role = role;
     }
 
-    public AppUser() {
-    }
+    public AppUser() { }
 
     @Override
     public String toString() {

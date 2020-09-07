@@ -1,6 +1,7 @@
 package dom.com.AudioFeel;
 
 import dom.com.AudioFeel.Repo.AppUserRepo;
+import dom.com.AudioFeel.model.AppAuction;
 import dom.com.AudioFeel.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -39,10 +40,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/user").hasAuthority("ROLE_USER")
                 .antMatchers("/admin").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/audio").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/logowanie").successHandler(successHandler).permitAll()
-                .and().logout();
+                .and().logout(logout -> logout.logoutUrl("/logout"));
 
     }
 
@@ -55,9 +57,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void get(){
         AppUser appUser = new AppUser("Daniel",passwordEncoder().encode("test"),"ROLE_USER");
         AppUser appUser1 = new AppUser("Mariusz",passwordEncoder().encode("test"),"ROLE_ADMIN");
-        appUserRepo.save(appUser);
-        appUserRepo.save(appUser1);
+
+        //appUserRepo.save(appUser);
+        //appUserRepo.save(appUser1);
+
     }
+
 }
 
 

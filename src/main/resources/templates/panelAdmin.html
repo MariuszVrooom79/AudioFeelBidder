@@ -19,14 +19,14 @@
 <!---------------------------------------------- NAVBAR ----------------------------------------------->
 <title>AudioFeel</title>
 <nav class="navbar navbar-expand-md">
-    <a href="/home"> <img src="http://server107178.nazwa.pl/Priv/Zdjecia/bidder/LogoB.png" alt="logo" width="150px"></a>
+    <a href="/main"> <img src="http://server107178.nazwa.pl/Priv/Zdjecia/bidder/LogoB.png" alt="logo" width="150px"></a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="main-navigation">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/aukcje">Aukcje</a>
+                <a class="nav-link" href="/main">Aukcje</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/zasady">Zasady</a>
@@ -54,30 +54,19 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col"># Aukcji</th>
                 <th scope="col">Nazwam przedmmiotu</th>
                 <th scope="col">Aktualna cena</th>
                 <th scope="col">Do zakończenia akcji</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
+            <tr th:each="auctionsAdmin : ${auctionsAdmin}">
+                <td th:text="${auctionsAdmin.id}"></td>
+                <td th:text="${auctionsAdmin.auctionname}"></td>
+                <td th:text="${auctionsAdmin.price}"></td>
+                <td th:text="${auctionsAdmin.endTime}"></td>
+                <td th:text="${auctionsAdmin.image}"></td>
             </tr>
             </tbody>
         </table>
@@ -85,14 +74,15 @@
             <a href="#" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Sprzedane</a>
             <a href="#" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Wypłać</a>
         </div>
-        <a href="#" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Wystaw przedmiot</a>
+        <a href="/audio" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">Wystaw przedmiot</a>
+        <a href="/logout" class="btn btn-danger" role="button" aria-pressed="true">Logout</a>
 
     </div>
 
     <div class="panel-right">
         <div class="panel-logo">
             <div>
-                <img src="basowka.jpg" alt="logo" width="180px">
+                <img src="http://server107178.nazwa.pl/Priv/Zdjecia/bidder/avatAdmin.png" alt="logo" width="180px">
             </div>
             <div class="panel-logo-right">
                 Cześć <span th:text="${username}"/>

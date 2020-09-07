@@ -22,4 +22,5 @@ public class UserDetailsServiceImp implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return appUserRepo.findByUsername(s);
     }
+
 }

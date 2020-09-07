@@ -20,14 +20,14 @@
 <!---------------------------------------------- NAVBAR ----------------------------------------------->
 <title>AudioFeel</title>
 <nav class="navbar navbar-expand-md">
-    <a href="/home"> <img src="http://server107178.nazwa.pl/Priv/Zdjecia/bidder/LogoB.png" alt="logo" width="150px"></a>
+    <a href="/main"> <img src="http://server107178.nazwa.pl/Priv/Zdjecia/bidder/LogoB.png" alt="logo" width="150px"></a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="main-navigation">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/aukcje">Aukcje</a>
+                <a class="nav-link" href="/main">Aukcje</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/zasady">Zasady</a>
@@ -75,11 +75,12 @@
         <!-- Login Form -->
 
 
-<form acction="#" th:action="@{/audio}" method="post">
-    <input type="text" th:field="${audio.name}" id="audio" class="fadeIn second" name="name" placeholder="tytuł aukcji">
-    <input type="text" th:field="${audio.description}" id="description" class="fadeIn third" name="description" placeholder="opis">
-    <input type="text" th:field="${audio.price}" id="price" class="fadeIn third" name="price" placeholder="wpisz cenę">
-    <input type="file" th:field="${audio.image}" id="image" class="fadeIn fifth" name="image" placeholder="wpisz cenę">
+<form acction="#" th:action="@{/audio}" th:object="AppAuction" method="post">
+    <input type hidden th:field="*{auction.id}"/>
+    <input type="text" th:field="${auction.auctionname}" id="audio" class="fadeIn second" name="name" placeholder="tytuł aukcji">
+    <input type="text" th:field="${auction.description}" id="description" class="fadeIn third" name="description" placeholder="opis">
+    <input type="text" th:field="${auction.price}" id="price" class="fadeIn third" name="price" placeholder="wpisz cenę">
+    <input type="file" th:field="${auction.image}" id="image" class="fadeIn fifth" name="image" placeholder="wpisz cenę">
 
     <input type="submit" class="fadeIn fourth" value="Wystaw przedmiot">
 
