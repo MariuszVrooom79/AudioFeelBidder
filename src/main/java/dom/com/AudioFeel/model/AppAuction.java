@@ -17,7 +17,7 @@ public class AppAuction {
 
     private String owner;
     private String highestBitter;
-    private int endTime; //TODO Jaki format daty ? Tu trzeba bedzie dodac np 7 dni od zalożenia aukcji do końca aukcji
+    private int endTime;
 
     @Lob
     private String image;

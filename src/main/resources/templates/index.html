@@ -54,7 +54,7 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img style="max-height: 700px" src="http://server107178.nazwa.pl/Priv/Zdjecia/bidder/main2.jpg" class="d-block w-100" alt="Responsive image">
+                <img style="max-height: 700px" src="http://server107178.nazwa.pl/Priv/Zdjecia/bidder/main2.png" class="d-block w-100" alt="Responsive image">
             </div>
             <div class="carousel-item">
                 <img style="max-height: 700px" src="http://server107178.nazwa.pl/Priv/Zdjecia/bidder/main3.png" class="d-block w-100" alt="Responsive image">
@@ -104,7 +104,7 @@
                         <h1 class="card-text" th:text="${allAuctions.auctionname}"></h1>
                         <p class="card-text"  th:text="${allAuctions.description}"></p>
                         <p class="card-text" th:text="Cena + ${allAuctions.price} + zł"></p>
-                        <a href="#" class="btn btn-primary">Pokaż więcej</a>
+                        <a href="/one/{id}" class="btn btn-primary">Pokaż więcej</a>
                     </div>
         </figure>
     </div>
@@ -121,14 +121,12 @@
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-12">
                 <h6 class="text-uppercase font-weight-bold">Informacje o nas</h6>
-                <p>Udostępniamy Wam stronę z aukcjami sprzętru audio</p>
                 <p>W razie jakichkolwiek pytań skontaktuj się z nami</p>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
                 <h6 class="text-uppercase font-weight-bold">Kontakt</h6>
                 <p>Warszawa 00-000, ul. Hoża 00/00
                     <br/>bidder@gmail.com
-                    <br/>mariusz.klimkiewicz.bhp@gmail.com
                     <br/>+ 22 234 567 89</p>
             </div>
         </div>

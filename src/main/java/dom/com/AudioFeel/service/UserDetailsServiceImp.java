@@ -1,4 +1,4 @@
-package dom.com.AudioFeel;
+package dom.com.AudioFeel.service;
 
 import dom.com.AudioFeel.Repo.AppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;

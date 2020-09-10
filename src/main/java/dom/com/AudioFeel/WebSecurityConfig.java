@@ -1,8 +1,8 @@
 package dom.com.AudioFeel;
 
 import dom.com.AudioFeel.Repo.AppUserRepo;
-import dom.com.AudioFeel.model.AppAuction;
 import dom.com.AudioFeel.model.AppUser;
+import dom.com.AudioFeel.service.UserDetailsServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;

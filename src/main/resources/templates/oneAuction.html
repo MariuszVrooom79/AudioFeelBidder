@@ -46,7 +46,7 @@
         </nav>
     </header>
 
-        <main contenteditable>
+        <main >
 
             <tr th:each="oneAuction : ${oneAuction}">
 
@@ -55,25 +55,31 @@
                 <a href="#"><img style="width:max-content"src="http://server107178.nazwa.pl/Priv/Zdjecia/bidder/p1.jpeg" alt=".."></a>
 
                 <h1 class="card-text" th:text="${oneAuction.auctionname}"></h1>
-                    <p>199.99 zł</p>
+                <p class="card-text" th:text=" Cena + ${oneAuction.price} + zł"></p>
 
                     <form>
                         <input type="text" id="newPrice" class="fadeIn second" name="newPrice" placeholder="Podaj twoją cenę">
                     </form>
-                    <button type="button" class="btn btn-succes btn-xs">Przebij</button>
+                <br>
+                    <button href="/user" type="button" class="btn btn-succes btn-xs">Przebij</button>
             </div>
             </center>
             <div class="two">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-            </div>
-            </tr>
+                <p class="card-text" th:text="${oneAuction.description}"></p>
+                  </div>
+
         </main>
 
 
 
-        <div class="right-sidebar" contenteditable>Right Sidebfdsgaght Sidebfdsgar</div>
-
-
+        <div class="right-sidebar" >
+            <div class="right">
+            <h4> Aukcje wygrywa : </h4>
+            <p th:text="${oneAuction.owner}"></p>
+            <p th:text="${oneAuction.highestBitter}"></p>
+            </div>
+        </div>
+    </tr>
 
 </head>
 
@@ -83,15 +89,9 @@
 
 
 
-
-
-
-
-
-
 </body>
 
-    <footer contenteditable>
+    <footer >
 
 
 
@@ -100,14 +100,12 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8 col-sm-12">
                     <h6 class="text-uppercase font-weight-bold">Informacje o nas</h6>
-                    <p>Udostępniamy Wam stronę z aukcjami sprzętru audio</p>
                     <p>W razie jakichkolwiek pytań skontaktuj się z nami</p>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12">
                     <h6 class="text-uppercase font-weight-bold">Kontakt</h6>
                     <p>Warszawa 00-000, ul. Hoża 00/00
                         <br/>bidder@gmail.com
-                        <br/>mariusz.klimkiewicz.bhp@gmail.com
                         <br/>+ 22 234 567 89</p>
                 </div>
             </div>

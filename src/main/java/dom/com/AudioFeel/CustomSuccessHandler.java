@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 @Component
-public class CustomSuccessHandler implements AuthenticationSuccessHandler { //TODO coppy tomuch
+public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {

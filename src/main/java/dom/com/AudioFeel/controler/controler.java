@@ -1,9 +1,9 @@
 package dom.com.AudioFeel.controler;
 
-import dom.com.AudioFeel.AuctionService;
+import dom.com.AudioFeel.service.AuctionService;
 import dom.com.AudioFeel.Repo.AppAucionRepo;
 import dom.com.AudioFeel.Repo.AppUserRepo;
-import dom.com.AudioFeel.UserService;
+import dom.com.AudioFeel.service.UserService;
 import dom.com.AudioFeel.model.AppAuction;
 import dom.com.AudioFeel.model.AppUser;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,14 +54,14 @@ public class controler {
 
         List<AppAuction> allAuc = appAucionRepo.findAll();
 
-        Optional<AppAuction> oneAuction = appAucionRepo.findById(id);
+        Optional<AppAuction> oneAuctionOpt = appAucionRepo.findById(id);
+        AppAuction oneAuction = oneAuctionOpt.get();
 
         model.addAttribute("allAuc",allAuc);
         model.addAttribute("oneAuction",oneAuction);
 
         return "oneAuction";
     }
-
 
     @GetMapping("/kontakt")
     public String getKontat() {
@@ -111,7 +110,6 @@ public class controler {
         return "panelAdmin";
     }
 
-
     @GetMapping("/article")
     public String getArticle() {
         return "article";
@@ -130,20 +128,12 @@ public class controler {
 
         model.addAttribute("username",principal.getName());
 
-
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         appAuction.setImage(fileName);
 
         appAuction.setOwner(principal.getName());
         auctionService.addAuction(appAuction,appUser);
 
-
-        System.out.println(appAuction.getId());
-        System.out.println(appAuction.getAuctionname());
-        System.out.println(appAuction.getDescription());
-        System.out.println(appAuction.getImage());
-        System.out.println(appUser.getUsername());
-        System.out.println(principal.getName());
         return "redirect:/user";
 
     }
@@ -182,15 +172,33 @@ public class controler {
 
 
         userService.addUser(appUser);
-        ra.addFlashAttribute("message", " Użytwkownik został zarejestrowany"); //TODO: czemu nie działa
+        ra.addFlashAttribute("message", " Użytwkownik został zarejestrowany");
 
         return "redirect:/logowanie";
     }
-    @GetMapping("user-delete/{id}")
+
+    @PostMapping("/save")
+    public String toSave(AppAuction appAuction){
+
+        appAucionRepo.save(appAuction);
+
+        return "redirect:/main";
+    }
+
+    @GetMapping("/user-delete/{id}")
     public String getDeleteUser(@PathVariable Long id){
 
         appUserRepo.deleteById(id);
 
         return "redirect:/logowanie";
     }
+
+    @GetMapping("/updatePrice")
+    public String upDatePrice(AppAuction appAuction) {
+
+        auctionService.changePrice(appAuction,appAuction.getPrice());
+
+        return "index";
+    }
+
 }

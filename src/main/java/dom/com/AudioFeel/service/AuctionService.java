@@ -1,4 +1,4 @@
-package dom.com.AudioFeel;
+package dom.com.AudioFeel.service;
 
 
 import dom.com.AudioFeel.Repo.AppAucionRepo;
@@ -23,12 +23,10 @@ public class AuctionService {
         appAucionRepo.save(appAuction);
 
     }
-    public List<AppAuction> getAllAuctions(){
+    public void changePrice(AppAuction appAuction , int a){
 
-        return appAucionRepo.findAll();
+        appAuction.setPrice(a);
+        appAucionRepo.save(appAuction);
+
     }
-   // public List<AppAuction> getAuctionByOwner(String owner){
-
-   //     return appAucionRepo.fin(owner);
-   // }
 }

@@ -21,9 +21,8 @@ public class AppUser implements UserDetails {
     private Long id;
 
     private String username;
-    private String password; //TODO: Hasło powinno zapisywać się w tablic
+    private String password;
     private String role;
-    public static List<AppUser> listAppUser = new ArrayList<>();
 
     public AppUser(String username, String password, String role) {
         this.username = username;
